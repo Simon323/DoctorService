@@ -1,8 +1,36 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+
+  .registration-panel {
+    min-width: 400px;
+    width: 400px;
+    margin: auto;
+    min-height: 500px;
+
+    .panel-heading {
+      text-align:center;
+    }
+  }
+
+  .login-panel {
+    min-width: 400px;
+    width: 400px;
+    margin: auto;
+    min-height: 350px;
+  }
+  .panel-heading {
+    text-align:center;
+  }
 }
 
-a {
-  color: #00B7FF;
-}
+//.form {
+//  .form-group {
+//    input[type=text]{
+//      border-bottom: 1px solid #BDBDBD;
+//    }
+//    input[type=password]{
+//      border-bottom: 1px solid #BDBDBD;
+//    }
+//  }
+//}

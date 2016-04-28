@@ -9,7 +9,7 @@ var config = {
       name: 'medicaldocumentservice'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/medicaldocumentservice-development'
+    db: 'mongodb://localhost/mongo'
   },
 
   test: {

@@ -1,0 +1,32 @@
+<%include ../header.ejs%>
+
+
+
+<div class="panel panel-primary login-panel">
+  <div class="panel-heading"><strong>Login</strong></div>
+  <div class="panel-body">
+
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>Login / Hasło niepoprawne</strong>
+    </div>
+
+    <form class="form" action="/login" method="post">
+
+      <div class="form-group-md">
+        <input type="text" class="form-control" id="inputUsername" placeholder="Nazwa Użytkownika" name="username">
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Hasło" name="password">
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Zaloguj</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<%include ../footer.ejs%>

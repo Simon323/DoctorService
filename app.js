@@ -1,5 +1,3 @@
-
-
 var express = require('express'),
   config = require('./config/config'),
   glob = require('glob'),
@@ -23,3 +21,5 @@ app.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
 });
 
+//todo uzytkownicy - lekarze i pacjenci
+//todo na indeksie trzeba byc zalogowanym w przeciwnym wypadku redirect na login

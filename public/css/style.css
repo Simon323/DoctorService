@@ -1,0 +1,17 @@
+body {
+  width: 100vw;
+  height: 100vh; }
+  body .registration-panel {
+    min-width: 400px;
+    width: 400px;
+    margin: auto;
+    min-height: 500px; }
+    body .registration-panel .panel-heading {
+      text-align: center; }
+  body .login-panel {
+    min-width: 400px;
+    width: 400px;
+    margin: auto;
+    min-height: 350px; }
+  body .panel-heading {
+    text-align: center; }
