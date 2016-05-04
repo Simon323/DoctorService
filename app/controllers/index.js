@@ -1,29 +1,23 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Patient = require('../models/patient');
+  User = require('../models/user');
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
 router.get('/', function (req, res, next) {
-
-  var patient = new Patient({
-    first_name: "Piotr",
-    last_name: "Krusicki",
-    city: "Poznań",
-    pesel: "90030205898",
-    username: "kruhy",
-    password: "something"
-  });
-
-  patient.save(function(err,patient){
-    console.log('done');
-  })
-
-
-  res.render('index', {
-    title: "index"
-  })
+  if(typeof req.user == 'undefined') {
+    res.redirect('/login')
+  }
+  else {
+    var user = req.user;
+    if(user.role=="patient") {
+      res.redirect('/patient_panel')
+    }
+    if(user.role == "doctor") {
+      res.redirect('/doctor_panel')
+    }
+  }
 });

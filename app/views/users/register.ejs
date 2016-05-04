@@ -1,6 +1,7 @@
-<%include ../../header.ejs%>
+<%include ../header.ejs%>
 
-<div class="panel panel-primary registration-panel">
+<div class="panel panel-primary registration-panel" ng-app="register" ng-controller="registrationCtrl">
+
   <div class="panel-heading"><strong>Rejestracja Pacjenta</strong></div>
   <div class="panel-body">
 
@@ -9,7 +10,22 @@
       <strong>Hasła muszą się zgadzać</strong>
     </div>
 
-    <form class="form" action="/register/patient" method="post">
+    <form class="form" action="/register" method="post">
+
+      <div class="form-group">
+        <div class="radio radio-primary">
+          <label>
+            <input type="radio" name="role" id="role1" value="doctor" ng-model="role">
+            Lekarz
+          </label>
+        </div>
+        <div class="radio radio-primary">
+          <label>
+            <input type="radio" name="role" id="role2" value="patient" ng-model="role">
+            Pacjent
+          </label>
+        </div>
+      </div>
 
       <div class="form-group-md">
         <input type="text" class="form-control" id="inputUsername" placeholder="Nazwa Użytkownika" name="username">
@@ -27,13 +43,13 @@
         <input type="text" class="form-control" id="inputCity" placeholder="Miasto" name="city">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-if="role == 'patient'">
         <input type="text" class="form-control" id="inputPesel" placeholder="PESEL" name="pesel">
       </div>
 
-      <!--<div class="form-group">-->
-        <!--<input type="text" class="form-control" id="inputSpeciality" placeholder="Specjalizacja">-->
-      <!--</div>-->
+      <div class="form-group" ng-if="role == 'doctor'">
+        <input type="text" class="form-control" id="inputSpeciality" placeholder="Specjalizacja" name="speciality">
+      </div>
 
       <div class="form-group">
         <input type="password" class="form-control" id="inputPassword" placeholder="Hasło" name="password">
@@ -52,4 +68,4 @@
   </div>
 </div>
 
-<%include ../../footer.ejs%>
+<%include ../footer.ejs%>

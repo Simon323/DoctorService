@@ -1,0 +1,108 @@
+<%include ../header.ejs%>
+<div ng-app="patient_panel" ng-controller="patientPanelCtrl">
+  <nav class="navbar navbar-default" role="navigation">
+
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Medical Documents</a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Profil
+            <b class="caret"></b>
+          </a>
+
+          <ul class="dropdown-menu">
+            <!--todo modal-->
+            <li><a href="#">Edytuj</a></li>
+            <!--todo potwierdzenie-->
+            <li><a href="#">Usuń</a>
+            <li class="divider"></li>
+            <li><a href="/logout">Wyloguj</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-xs-5">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><strong>Wszyscy lekarze</strong></div>
+          <div class="panel-body">
+
+            <select id="select222" multiple="" class="form-control">
+              <option>Mateusz Lubomirski 1</option>
+              <option>Mateusz Lubomirski 2</option>
+              <option>Mateusz Lubomirski 3</option>
+              <option>Mateusz Lubomirski 4</option>
+              <option>Mateusz Lubomirski 5</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-2">
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <button type="button" class="btn btn-primary">Dodaj</button>
+            <button type="button" class="btn btn-primary">Usuń</button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-5">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><strong>Lekarze z dostępem</strong></div>
+          <div class="panel-body">
+
+            <select id="select22" multiple="" class="form-control">
+              <option>Mateusz Lubomirski 1</option>
+              <option>Mateusz Lubomirski 2</option>
+              <option>Mateusz Lubomirski 3</option>
+              <option>Mateusz Lubomirski 4</option>
+              <option>Mateusz Lubomirski 5</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong>Historia choroby</strong></div>
+        <div class="panel-body">
+          <table class = "table">
+            <thead>
+            <tr>
+              <th>Data</th>
+              <th>Rozpoznanie</th>
+              <th>Lekarz</th>
+              <th>Pliki</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+              <td>02-03-1990</td>
+              <td>Narodziny</td>
+              <td>dr. Maciej Kaczmarek</td>
+              <td>90030205898</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%include ../footer.ejs%>

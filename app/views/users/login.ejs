@@ -6,10 +6,14 @@
   <div class="panel-heading"><strong>Login</strong></div>
   <div class="panel-body">
 
-    <div class="alert alert-dismissible alert-danger">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-      <strong>Login / Hasło niepoprawne</strong>
-    </div>
+    <%if(flash) { %>
+      <% flash.forEach(function(f){ %>
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong><%=f.message%></strong>
+        </div>
+      <% }) %>
+    <%}%>
 
     <form class="form" action="/login" method="post">
 

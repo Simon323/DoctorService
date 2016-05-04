@@ -11,6 +11,7 @@ var expressValidator = require("express-validator");
 var session  = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var flash = require('flash')
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -51,6 +52,7 @@ module.exports = function(app, config) {
     saveUninitialized: true,
     resave: true
   }));
+  app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -69,6 +71,16 @@ module.exports = function(app, config) {
   var users_controllers = glob.sync(config.root + '/app/controllers/users/*.js');
   users_controllers.forEach(function (users_controller) {
     require(users_controller)(app);
+  });
+
+  /*
+  * Global vars
+  */
+
+  app.use(function(req,res,next){
+    res.locals.user = req.user || null;
+    res.locals.test = "test";
+    next();
   });
 
   app.use(function (req, res, next) {

@@ -3,16 +3,16 @@ var express  = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    Patient  = require('../../models/patient');
+    User  = require('../../models/user');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    Patient.findOne({ username: username }, function (err, user) {
+    User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!Patient.validPassword(password,user.password)) {
+      if (!User.validPassword(password,user.password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
@@ -23,28 +23,33 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
-  Patient.findById(id, function(err, user) {
+  User.findById(id, function(err, user) {
     done(err, user);
   });
 });
 module.exports = function (app) {
-  app.use('/register/patient', router);
+  app.use('/register', router);
 };
 
 /*
 * ROUTES
 */
 router.get('/', function (req, res, next) {
-  res.render('users/patients/register_patient' , {
-    title: "Patient Registration"
+  res.render('users/register' , {
+    title: "Registration"
   })
 });
 
 router.post('/', function (req, res, next) {
+  var role = req.body.role;
+
+  //role specific fields
+  var speciality = req.body.speciality;
+  var pesel = req.body.pesel;
+
   var first_name = req.body.first_name;
   var last_name = req.body.last_name;
   var city = req.body.city;
-  var pesel = req.body.pesel;
 
   var username = req.body.username;
   var password = req.body.password;
@@ -57,7 +62,7 @@ router.post('/', function (req, res, next) {
 
   var errors = req.validationErrors();
   if(errors){
-    res.render('users/patients/register_patient', {
+    res.render('users/register', {
       title: "Registration Page",
       errors: errors,
       info: false,
@@ -65,7 +70,10 @@ router.post('/', function (req, res, next) {
     })
   }
   else {
-    var newPatient = new Patient({
+    var newUser = new User({
+      role: role,
+      speciality: speciality,
+      pesel:pesel,
       username: username,
       password: password,
       first_name: first_name,
@@ -74,7 +82,7 @@ router.post('/', function (req, res, next) {
       pesel: pesel
     });
 
-    Patient.createPatient(newPatient, function(err,user) {
+    User.createUser(newUser, function(err,user) {
       console.log(user);
     });
 
