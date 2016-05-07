@@ -1,0 +1,123 @@
+<% include ../../views/header.ejs%>
+
+<nav class="navbar navbar-default" role="navigation">
+
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Medical Documents</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Profil
+          <b class="caret"></b>
+        </a>
+
+        <ul class="dropdown-menu">
+          <!--todo modal-->
+          <li><a href="#">Edytuj</a></li>
+          <!--todo potwierdzenie-->
+          <li><a href="#">Usuń</a>
+          <li class="divider"></li>
+          <li><a href="/logout">Wyloguj</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" ng-app="doctor_panel" ng-controller="doctorPanelCtrl">
+  <div class="row">
+    <div class="panel panel-primary patients-panel">
+      <div class="panel-body">
+        <table class = "table table-hover">
+          <thead>
+          <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Miejscowość</th>
+            <th>PESEL</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="patient in patients track by $index" data-toggle="collapse" data-target="#collapse1" ng-click="getHistory(patient)">
+            <td>{{patient.first_name}}</td>
+            <td>{{patient.last_name}}</td>
+            <td>{{patient.city}}</td>
+            <td>{{patient.pesel}}</td>
+          </tr>
+
+          <tr>
+            <td colspan="6" class="hiddenRow">
+              <div id="collapse1" class="accordion-body collapse">
+
+                <div class="container-fluid">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading"><strong>Historia choroby</strong></div>
+                    <div class="panel-body">
+                      <table class = "table">
+                        <thead>
+                        <tr>
+                          <th>Data</th>
+                          <th>Rozpoznanie</th>
+                          <th>Lekarz</th>
+                          <th>Pliki</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="h in history track by $index">
+                          <td>{{h.date}}</td>
+                          <td>{{h.diagnosis}}</td>
+                          <td>{{h.doctor.first_name + ' ' + h.doctor.last_name}}</td>
+                          <td>{{h.file}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-primary">
+                    <div class="panel-heading"><strong>Dodaj wpis</strong></div>
+                    <div class="panel-body">
+                      <form action="{{'/patients/' + currentPatient._id + '/history'}}" method="post" enctype="multipart/form-data">
+
+                        <div class="form-group-md">
+                          <label class="control-label" for="inputDate">Data</label>
+                          <input type="text" class="form-control" id="inputDate" placeholder="Wybierz date" name="date">
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label" for="inputFile2">Pliki</label>
+                          <input type="file" id="inputFile2" name="file" multiple="">
+                          <input type="text" readonly="" class="form-control" placeholder="Kliknij Aby Wybrać">
+                        </div>
+
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="inputDiagnosis" placeholder="Rozpoznanie">
+                          <textarea class="form-control" rows="3"  placeholder="Wpisz tekst" name="diagnosis"></textarea>
+                        </div>
+
+                        <div class="form-group text-center">
+                          <button type="submit" class="btn btn-primary">Dodaj wpis</button>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../../views/footer.ejs%>

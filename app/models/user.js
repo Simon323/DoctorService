@@ -10,6 +10,7 @@ var UserSchema = new Schema({
   speciality: String,
   doctors: [{type: Schema.ObjectId, ref: 'User'}],
   patients: [{type: Schema.ObjectId, ref: 'User'}],
+  history: [{type: Schema.ObjectId, ref: 'History'}],
 
   first_name: String,
   last_name: String,

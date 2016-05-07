@@ -11,7 +11,8 @@ var expressValidator = require("express-validator");
 var session  = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var flash = require('flash')
+var flash = require('flash');
+var path = require('path');
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';

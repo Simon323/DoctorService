@@ -35,7 +35,7 @@
           <div class="panel-heading"><strong>Wszyscy lekarze</strong></div>
           <div class="panel-body">
 
-            <select multiple="" class="form-control" ng-model="fromRestDoctors" ng-options="doctor.first_name +' '+ doctor.last_name for doctor in restDoctors"></select>
+            <select multiple="" class="form-control" ng-model="fromRestDoctors" ng-options="doctor.first_name +' '+ doctor.last_name +' '+doctor.speciality for doctor in restDoctors"></select>
 
           </div>
         </div>
@@ -56,7 +56,7 @@
           <div class="panel-heading"><strong>Lekarze z dostępem</strong></div>
           <div class="panel-body">
 
-            <select multiple="" class="form-control" ng-model="fromPatientDoctors" ng-options="doctor.first_name +' '+ doctor.last_name for doctor in patientDoctors"></select>
+            <select multiple="" class="form-control" ng-model="fromPatientDoctors" ng-options="doctor.first_name +' '+ doctor.last_name+' '+doctor.speciality for doctor in patientDoctors"></select>
 
 
           </div>

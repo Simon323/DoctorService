@@ -32,7 +32,6 @@ patient_panel.controller('patientPanelCtrl',['$scope','$http',function($scope,$h
       $http({method: 'DELETE', url: 'http://localhost:3000/patient/doctors',headers: {'Content-Type': 'application/json'},data: {'doctor_id' : doctor._id}})
         .then(
           function successCallback(response) {
-            //todo usunac z listy patientDoctors dodac do restDoctors
             $scope.restDoctors.push(doctor);
             $scope.patientDoctors.splice($scope.patientDoctors.indexOf(doctor),1);
             console.log("removeDoctors ok");

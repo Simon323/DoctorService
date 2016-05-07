@@ -12,5 +12,21 @@ router.get('/', function (req, res, next) {
   User.find({'role':'doctor'},function(err,users){
     res.send(users);
   })
+});
 
+router.get('/patients', function (req, res, next) {
+  //todo zwraca wszystkich pacjentow nalezacych do lekarza
+  //returns all the doctors
+  var doctor_id = mongoose.Types.ObjectId(req.user.id);
+  
+  User.find({'role':'patient', doctors:{$in : [doctor_id] }},function(err,patients){
+    
+    if(err){throw err}
+    else {
+      res.send(patients);
+    }
+    
+  })
+  
+  
 });
