@@ -9,6 +9,8 @@
   "dependencies": {
     "angular": "^1.5.5",
     "bootstrap-material-design": "^0.5.9",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "bootstrap-material-datetimepicker": "^2.7.1",
+    "bootstrap-css": "^3.3.6"
   }
 }
