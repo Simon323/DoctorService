@@ -15,7 +15,6 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/patients', function (req, res, next) {
-  //todo zwraca wszystkich pacjentow nalezacych do lekarza
   //returns all the doctors
   var doctor_id = mongoose.Types.ObjectId(req.user.id);
   
