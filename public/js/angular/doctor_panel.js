@@ -33,4 +33,8 @@ doctor_panel.controller('doctorPanelCtrl',['$scope','$http',function($scope,$htt
           console.log('getPatients fail');
         });
   }
+  
+  $scope.addHistoryRecord = function () {
+    
+  }
 }]);

@@ -7,8 +7,8 @@ var HistorySchema = new Schema({
 
   date: {type: Date, default: Date.now()},
   diagnosis: String,
-
-  file: String
+  file: String,
+  fileGuid: String
 
 });
 var History = mongoose.model('History', HistorySchema);

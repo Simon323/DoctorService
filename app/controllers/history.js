@@ -3,8 +3,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   History = require('../models/history'),
   User = require('../models/user'),
-  multer = require('multer'),
-  upload = multer({dest: './uploads/'});
+  multer = require('multer');
 
 module.exports = function (app) {
   app.use('/', router);
@@ -31,11 +30,14 @@ router.get('/patients/:patient_id/history', function (req, res, next) {
     })
 });
 
-router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\\public\\files\\'}).single('file'),function (req, res, next) {
+router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\\public\\files\\'}).single('file') ,function (req, res, next) {
   var patient_id = mongoose.Types.ObjectId(req.params.patient_id);
- console.log(__dirname);
+ /*console.log(__dirname);*/
+  console.log("TU !!!!!!!!!!!!!")
+  console.log(req.body);
+  console.log(req.file);
   //todo tutaj zaczac
-  
+
   //todo dodac do obiektu historia informacje o miejscu zapisania pliku
   //todo dodac etykiete opisujaca plik
   //todo obsluga rozszerzen
@@ -45,7 +47,8 @@ router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\
   var doctor_id = mongoose.Types.ObjectId(req.user.id);
   var date = req.body["date"];
   var diagnosis = req.body["diagnosis"];
-  var file = req.body["file"];
+  var file = req.file.originalname;
+  var fileGuid = req.file.filename;
 
   User.findOne({'_id' : patient_id})
     .populate('history')
@@ -57,7 +60,8 @@ router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\
           doctor : doctor_id,
           date : date,
           diagnosis : diagnosis,
-          file : file
+          file : file,
+          fileGuid: fileGuid
         });
 
         history.save(function(err,hist){
@@ -66,7 +70,14 @@ router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\
             user.history.push(hist);
             user.save(function(err,user){
               if(err){throw err}
-              else {res.sendStatus(200);}
+              else {
+                /*res.sendStatus(200);*/
+
+                res.render('users/doctor_panel',{
+                  title: "Doctor panel",
+                  doctor: req.user
+                });
+              }
             })
           }
         })
