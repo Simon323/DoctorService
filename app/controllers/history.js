@@ -3,7 +3,16 @@ var express = require('express'),
   mongoose = require('mongoose'),
   History = require('../models/history'),
   User = require('../models/user'),
-  multer = require('multer');
+  multer = require('multer'),
+  path = require('path'),
+  mime = require('mime');
+
+var app = express();
+
+router.get('/download', function(req, res){
+  var file = __dirname + '\\..\\upload-folder\\6d32756df64b6f054a72a25e941d0a48.JPG';
+  res.download(file, 'obraz.JPG');
+});
 
 module.exports = function (app) {
   app.use('/', router);
@@ -30,12 +39,31 @@ router.get('/patients/:patient_id/history', function (req, res, next) {
     })
 });
 
-router.post('/patients/:patient_id/history', multer({ dest: __dirname+'\\..\\..\\public\\files\\'}).single('file') ,function (req, res, next) {
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4();
+}
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/../upload-folder/')
+  },
+  filename: function (req, file, cb) {
+    var fileNameSplit = file.originalname.split(".");
+    var fileName = fileNameSplit[0] + guid() + ".JPG"
+    cb(null, fileName);
+  }
+});
+
+var upload = multer({ storage: storage });
+
+/*router.post('/patients/:patient_id/history', multer({ dest: __dirname + '/../upload-folder/'}).single('file') ,function (req, res, next) {*/
+router.post('/patients/:patient_id/history', upload.single('file') ,function (req, res, next) {
   var patient_id = mongoose.Types.ObjectId(req.params.patient_id);
- /*console.log(__dirname);*/
-  console.log("TU !!!!!!!!!!!!!")
-  console.log(req.body);
-  console.log(req.file);
   //todo tutaj zaczac
 
   //todo dodac do obiektu historia informacje o miejscu zapisania pliku
