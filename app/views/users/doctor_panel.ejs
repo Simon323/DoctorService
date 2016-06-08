@@ -72,7 +72,7 @@
                           <td>{{h.date | date:'yyyy-MM-dd'}}</td>
                           <td>{{h.diagnosis}}</td>
                           <td>{{h.doctor.first_name + ' ' + h.doctor.last_name}}</td>
-                          <td><a href="#">{{h.file}}</a></td>
+                          <td><a ng-href="http://localhost:3000/download/{{h.fileGuid}}">{{h.file}}</a></td>
                         </tr>
                         </tbody>
                       </table>

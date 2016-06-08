@@ -9,9 +9,16 @@ var express = require('express'),
 
 var app = express();
 
-router.get('/download', function(req, res){
-  var file = __dirname + '\\..\\upload-folder\\6d32756df64b6f054a72a25e941d0a48.JPG';
-  res.download(file, 'obraz.JPG');
+router.get('/download/:fileGuid', function(req, res){
+  var fileGuid = req.params.fileGuid;
+  var record = History.findOne({'fileGuid' : fileGuid}, function(err,docs){
+
+    if(err){throw err}
+    else {
+      var file = __dirname + '\\..\\upload-folder\\' + docs.fileGuid;
+      res.download(file, docs.file);
+    }
+  });
 });
 
 module.exports = function (app) {
@@ -20,14 +27,6 @@ module.exports = function (app) {
 
 router.get('/patients/:patient_id/history', function (req, res, next) {
   var patient_id = mongoose.Types.ObjectId(req.params.patient_id);
-  // User.findOne({'_id' : patient_id})
-  //   .populate('history')
-  //   .exec(function(err,user){
-  //     if(err){throw err}
-  //     else {
-  //       res.send(user.history)
-  //     }
-  //   });
 
   History.find({'patient' : patient_id})
     .populate('doctor')
@@ -54,14 +53,13 @@ var storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     var fileNameSplit = file.originalname.split(".");
-    var fileName = fileNameSplit[0] + guid() + ".JPG"
+    var fileName = fileNameSplit[0] + guid() + fileNameSplit[1];
     cb(null, fileName);
   }
 });
 
 var upload = multer({ storage: storage });
 
-/*router.post('/patients/:patient_id/history', multer({ dest: __dirname + '/../upload-folder/'}).single('file') ,function (req, res, next) {*/
 router.post('/patients/:patient_id/history', upload.single('file') ,function (req, res, next) {
   var patient_id = mongoose.Types.ObjectId(req.params.patient_id);
   //todo tutaj zaczac
