@@ -64,6 +64,7 @@
                           <th>Rozpoznanie</th>
                           <th>Lekarz</th>
                           <th>Pliki</th>
+                          <th>&nbsp;</th>
                         </tr>
                         </thead>
 
@@ -73,6 +74,10 @@
                           <td>{{h.diagnosis}}</td>
                           <td>{{h.doctor.first_name + ' ' + h.doctor.last_name}}</td>
                           <td><a ng-href="http://localhost:3000/download/{{h.fileGuid}}">{{h.file}}</a></td>
+                          <td class="delete-edit-container">
+                            <button class="btn btn-warning" ng-click="edit(h._id)">Edytuj</button>
+                            <button class="btn btn-danger" ng-click="remove(h._id)">Usuń</button>
+                          </td>
                         </tr>
                         </tbody>
                       </table>

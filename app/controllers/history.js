@@ -114,5 +114,13 @@ router.post('/patients/:patient_id/history', upload.single('file') ,function (re
 });
 
 router.delete('/patients/:patient_id/history/:history_id', function (req, res, next) {
+  var patientId = req.params.patient_id;
+  var historyId = req.params.history_id;
+
+  History.remove({'_id': historyId}, function (err) {
+    if(err) throw err;
+
+    res.send("200 OK");
+  });
   //todo usuwanie historii po id pacjenta - moze jednak nie usuwac tylko edytowac ?
 });

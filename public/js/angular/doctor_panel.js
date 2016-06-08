@@ -33,8 +33,29 @@ doctor_panel.controller('doctorPanelCtrl',['$scope','$http',function($scope,$htt
           console.log('getPatients fail');
         });
   }
-  
+
   $scope.addHistoryRecord = function () {
-    
-  }
+
+  };
+
+  $scope.remove = function (id) {
+    var historyRecordId = id;
+    var currentPatientId = $scope.currentPatient._id;
+
+    $http.delete('/patients/'+ currentPatientId + '/history/' + historyRecordId).success(function (res) {
+      var url = "http://localhost:3000/patients/"+currentPatientId+"/history";
+      $http.get(url).success(function (res) {
+        $scope.history = res;
+      })
+    });
+  };
+
+
+
+  $scope.edit = function (id) {
+    var historyRecordId = id;
+    var currentPatientId = $scope.currentPatient._id;
+    console.log(historyRecordId);
+    console.log(currentPatientId);
+  };
 }]);

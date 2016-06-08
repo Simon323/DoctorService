@@ -1,6 +1,7 @@
 body {
   width: 100vw;
-  height: 100vh; }
+  height: 100vh;
+  overflow-x: hidden; }
   body .registration-panel {
     min-width: 400px;
     width: 400px;
@@ -15,3 +16,5 @@ body {
     min-height: 350px; }
   body .panel-heading {
     text-align: center; }
+  body .delete-edit-container {
+    width: 235px; }
