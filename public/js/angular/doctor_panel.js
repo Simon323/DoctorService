@@ -1,9 +1,10 @@
-var doctor_panel = angular.module('doctor_panel',[]);
+var doctor_panel = angular.module('doctor_panel',['ui.bootstrap']);
 
-doctor_panel.controller('doctorPanelCtrl',['$scope','$http',function($scope,$http){
+doctor_panel.controller('doctorPanelCtrl',['$scope','$http', '$uibModal', function($scope,$http, $uibModal){
   $scope.patients = [];
   $scope.history = [];
   $scope.currentPatient = {};
+  $scope.items = "te bedzie zawartosc";
   getPatients();
 
   $scope.getHistory = function(patient){
@@ -50,12 +51,47 @@ doctor_panel.controller('doctorPanelCtrl',['$scope','$http',function($scope,$htt
     });
   };
 
-
-
   $scope.edit = function (id) {
     var historyRecordId = id;
     var currentPatientId = $scope.currentPatient._id;
-    console.log(historyRecordId);
-    console.log(currentPatientId);
+
+    $http.get('/history/' + historyRecordId).success(function (res) {
+      var historyData = res;
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'historyDataEditModal.html',
+        controller: 'ModalInstanceCtrl',
+        resolve: {
+          historyData: function () {
+            return historyData;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        var url = "http://localhost:3000/patients/"+currentPatientId+"/history";
+        $http.get(url).success(function (res) {
+          $scope.history = res;
+        });
+      }, function () {
+      });
+    });
   };
 }]);
+
+doctor_panel.controller('ModalInstanceCtrl', function ($scope, $http, $uibModalInstance, historyData) {
+
+  $scope.historyData = historyData;
+
+  $scope.okEditModal = function () {
+
+    $http.put('/history/' + historyData._id, $scope.historyData).success(function (res) {
+      $uibModalInstance.close();
+    });
+  };
+
+  $scope.cancelEditModal = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});

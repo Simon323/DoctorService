@@ -1,0 +1,15 @@
+<script type="text/ng-template" id="historyDataEditModal.html">
+  <div class="modal-header modal-header-border">
+    <h3 class="modal-title">Edytuje rozpoznanie</h3>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label" for="inputFile">Rozpoznanie</label>
+      <textarea class="form-control"  placeholder="Diagnoza" name="diagnosis" ng-model="historyData.diagnosis"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="okEditModal()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancelEditModal()">Cancel</button>
+  </div>
+</script>

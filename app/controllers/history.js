@@ -124,3 +124,21 @@ router.delete('/patients/:patient_id/history/:history_id', function (req, res, n
   });
   //todo usuwanie historii po id pacjenta - moze jednak nie usuwac tylko edytowac ?
 });
+
+router.get('/history/:id', function (req, res) {
+  var historyId = req.params.id;
+  History.findOne({'_id' : historyId}, function (err, doc) {
+    res.json(doc);
+  })
+});
+
+router.put('/history/:id', function (req, res) {
+  var historyId = req.params.id;
+
+  History.findOne({ _id: historyId }, function (err, doc){
+    doc.diagnosis = req.body.diagnosis;
+    doc.save();
+
+    res.send("200 OK");
+  });
+});
