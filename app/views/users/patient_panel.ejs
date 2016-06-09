@@ -15,11 +15,6 @@
           </a>
 
           <ul class="dropdown-menu">
-            <!--todo modal-->
-            <li><a href="#">Edytuj</a></li>
-            <!--todo potwierdzenie-->
-            <li><a href="#">Usuń</a>
-            <li class="divider"></li>
             <li><a href="/logout">Wyloguj</a></li>
           </ul>
         </li>
@@ -79,11 +74,11 @@
             </thead>
 
             <tbody>
-            <tr>
-              <td>02-03-1990</td>
-              <td>Narodziny</td>
-              <td>dr. Maciej Kaczmarek</td>
-              <td>90030205898</td>
+            <tr ng-repeat="h in healthStory track by $index">
+              <td>{{h.date | date:'yyyy-MM-dd'}}</td>
+              <td>{{h.diagnosis}}</td>
+              <td>{{h.doctor.first_name + ' ' + h.doctor.last_name}}</td>
+              <td><a ng-href="http://localhost:3000/download/{{h.fileGuid}}">{{h.file}}</a></td>
             </tr>
             </tbody>
           </table>

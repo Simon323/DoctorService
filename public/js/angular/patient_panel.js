@@ -60,9 +60,12 @@ patient_panel.controller('patientPanelCtrl',['$scope','$http',function($scope,$h
   *  Health story
   */
 
-  $scope.healthStory = getUserHealthStory();
-
   function getUserHealthStory(){
     //todo pobieranie historii choroby
-  }
+    $http.get('/patient_panel/history').success(function (res) {
+      $scope.healthStory = res;
+    });
+  };
+
+  getUserHealthStory();
 }]);

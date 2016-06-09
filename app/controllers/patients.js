@@ -105,8 +105,6 @@ router.delete('/doctors', function (req, res, next) {
   )
   });
 
-
-
 /**
  * Created by peter_kruhy on 04.05.2016.
  */

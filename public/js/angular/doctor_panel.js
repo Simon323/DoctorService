@@ -4,7 +4,6 @@ doctor_panel.controller('doctorPanelCtrl',['$scope','$http', '$uibModal', functi
   $scope.patients = [];
   $scope.history = [];
   $scope.currentPatient = {};
-  $scope.items = "te bedzie zawartosc";
   getPatients();
 
   $scope.getHistory = function(patient){
@@ -22,6 +21,7 @@ doctor_panel.controller('doctorPanelCtrl',['$scope','$http', '$uibModal', functi
           console.log('getHistory fail');
         });
   };
+
   function getPatients() {
     $http({method: 'GET', url: 'http://localhost:3000/doctors/patients'})
       .then(
